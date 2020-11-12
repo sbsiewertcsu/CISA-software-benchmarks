@@ -6,9 +6,9 @@
 #include <iostream>
 
 using namespace cv;
+using namespace std;
 
-/// Global variables
-
+// Global variables
 Mat src, src_gray;
 Mat dst, detected_edges;
 
@@ -17,7 +17,8 @@ int lowThreshold;
 int const max_lowThreshold = 100;
 int ratio = 3;
 int kernel_size = 3;
-//char* window_name = "Edge Map";
+char window_name[] = "Edge Map";
+
 
 /**
  * @function CannyThreshold
@@ -26,54 +27,64 @@ int kernel_size = 3;
 void CannyThreshold(int, void*)
 {
   /// Reduce noise with a kernel 3x3
-  blur( src_gray, detected_edges, Size(3,3) );
+  blur(src_gray, detected_edges, Size(3,3));
 
   /// Canny detector
-  Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
+  Canny(detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size);
 
-  /// Using Canny's output as a mask, we display our result
+  /// Using Canny's output as a mask, we display our result with image color
   dst = Scalar::all(0);
-
-  src.copyTo( dst, detected_edges);
-  //imshow( window_name, dst );
+  src.copyTo(dst, detected_edges);
  }
 
 
 /** @function main */
 int main( int argc, char** argv )
 {
-  //double start = clock();
   struct timespec begin, end;
-  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+  int iterations=1, idx;
+
+  if(argc < 3) 
+  { 
+    cout << "usage: canny imagefile iterations" << endl; return -1;
+  } else
+  {
+    iterations = atoi(argv[2]);
+  }
+
+  /// Create a window
+  namedWindow( window_name, CV_WINDOW_AUTOSIZE );
 
   /// Load an image
   src = imread( argv[1] );
 
-  if( !src.data )
-  { return -1; }
+  if( !src.data ) { return -1; }
 
   /// Create a matrix of the same type and size as src (for dst)
   dst.create( src.size(), src.type() );
 
-  /// Convert the image to grayscale
-  cvtColor( src, src_gray, CV_BGR2GRAY );
 
-  /// Create a window
-  //namedWindow( window_name, CV_WINDOW_AUTOSIZE );
+  // Timed benchmark - per POSIX thread, using affinity and SCHED_FIFO
+  //
+  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
 
-  /// Create a Trackbar for user to enter threshold
- // createTrackbar( "Min Threshold:", window_name, &lowThreshold, max_lowThreshold, CannyThreshold );
+  for(idx=0; idx < iterations; idx++)
+  {
+    cvtColor(src, src_gray, CV_BGR2GRAY);
+    CannyThreshold(0, 0);
+  }
 
-  /// Show the image
- // CannyThreshold(0, 0);
-
-  /// Wait until user exit program by pressing a key
-  //waitKey(0);
-  //double end = clock();
-  //double elapsed = (end - start)/CLOCKS_PER_SEC;
-  //std::cout<<"elapsed time was "<<elapsed<<std::endl;  
   clock_gettime(CLOCK_MONOTONIC_RAW, &end);
-  std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;
+  //
+  // End timed section
+
+  cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<endl;
+
+  // Benchmark output approval - wait until user exit program by pressing a key
+  imshow(window_name, dst);
+  waitKey(0);
+
+
 
   return 0;
 }
