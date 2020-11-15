@@ -11,10 +11,13 @@ using namespace cv;
 int main(int argc, char** argv)
 {
   Mat src, src_gray;
-  
-  //double start = clock();
   struct timespec begin, end;
-  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+  if(argc<3){
+     printf("usage: ./hough_circle imagefile numIterations \n");
+     return -1;
+  }
+  int iterations = atoi(argv[2]);
+  printf("number of iterations is %d\n",iterations);
 
   /// Read the image
   src = imread( argv[1], 1 );
@@ -30,8 +33,13 @@ int main(int argc, char** argv)
 
   std::vector<Vec3f> circles;
 
-  /// Apply the Hough Transform to find the circles
-  HoughCircles( src_gray, circles, CV_HOUGH_GRADIENT, 1, src_gray.rows/8, 200, 100, 0, 0 );
+  //time the transform
+  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);  
+  for(int i=0; i<iterations; i++){
+     // Apply the Hough Transform to find the circles
+     HoughCircles( src_gray, circles, CV_HOUGH_GRADIENT, 1, src_gray.rows/8, 200, 100, 0, 0 );
+  }
+  clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
   /// Draw the circles detected
   for( size_t i = 0; i < circles.size(); i++ )
@@ -44,17 +52,13 @@ int main(int argc, char** argv)
       circle( src, center, radius, Scalar(0,0,255), 3, 8, 0 );
    }
 
-  /// Show your results
-  //namedWindow( "Hough Circle Transform Demo", CV_WINDOW_AUTOSIZE );
-  //imshow( "Hough Circle Transform Demo", src );
-
-  //waitKey(0);
-  //double end = clock();
-  //double elapsed = (end - start)/CLOCKS_PER_SEC;
-  //std::cout<<"elapsed time was "<<elapsed<<std::endl;
-
-  clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+  //display runtime
   std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;  
+
+  //show the results
+  namedWindow("Hough Circle Transform Demo", CV_WINDOW_AUTOSIZE );
+  imshow( "Hough Circle Transform Demo", src );
+  waitKey(0);
 
   return 0;
 }

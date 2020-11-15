@@ -9,16 +9,15 @@ using namespace cv;
 const char* window_name = "Pyramids Demo";
 int main( int argc, char** argv )
 {
-    cout << "\n Zoom In-Out demo \n "
-            "------------------  \n"
-            " * [i] -> Zoom in   \n"
-            " * [o] -> Zoom out  \n"
-            " * [ESC] -> Close program \n" << endl;
+    if(argc<3){
+       printf("usage: ./pyrimage imagefile numIterations \n");
+       return -1;
+    }
+    int iterations = atoi(argv[2]); 
     const char* filename = argc >=2 ? argv[1] : "Cactus-12mpixel.png";
-    
+     
     struct timespec begin,end;
-    //double start = clock();
-    clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+    
     
     // Loads an image
     //Mat src = imread( samples::findFile( filename ) ); //problematic line
@@ -30,32 +29,21 @@ int main( int argc, char** argv )
         printf(" Program Arguments: [image_name -- default Cactus-12mpixel.png] \n");
         return EXIT_FAILURE;
     }
-   // for(;;)
-   // {
-        imshow( window_name, src );
-        //char c = (char)waitKey(0);
-        //if( c == 27 )
-        //{ break; }
-        //else if( c == 'i' )
-        //{ 
-        //pyrUp( src, src, Size( src.cols*2, src.rows*2 ) );
-        //printf( "** Zoom In: Image x 2 \n" );
-        //}
-        //else if( c == 'o' )
-        //{
-	for(int i=0; i<2; i++){ 
-	  pyrDown( src, src, Size( src.cols/2, src.rows/2 ) );
-          printf( "** Zoom Out: Image / 2 \n" );
-	}
-	
-        //}
-   // }
 
-    //double end = clock();
-    //double elapsed = (end - start)/CLOCKS_PER_SEC; 
+    //time the transformation
+    clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+    for(int i=0; i<iterations; i++){ 
+       //pyrUp (src, src, Size( src.cols*2, src.rows*2) );  //zoom in
+       pyrDown( src, src, Size( src.cols/2, src.rows/2 ) );  //zoom out
+    }
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    //display the runtime
     std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec)/1000000000.0 +(end.tv_sec - begin.tv_sec))<<std::endl;
-    //std::cout<<"elapsed time was "<<elapsed<<std::endl; 
+   
+    //display result 
+    imshow( window_name, src);
+    waitKey(0);
 
     return EXIT_SUCCESS;
 }

@@ -15,14 +15,17 @@ int main( int argc, char** argv )
 
   Mat src, src_gray;
   Mat grad; 
-  //char* window_name = "Sobel Demo - Simple Edge Detector";
+  char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
   int delta = 0;
   int ddepth = CV_16S;
-
   int c;
-
-  //double start = clock();
+  if(argc<3){
+     printf("usage: ./sobel imagefile numIterations\n");
+     return -1;
+  }
+  int iterations = atoi(argv[2]);
+ 
   struct timespec begin, end;
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
 
@@ -38,34 +41,34 @@ int main( int argc, char** argv )
   cvtColor( src, src_gray, CV_RGB2GRAY );
 
   /// Create window
-  //namedWindow( window_name, CV_WINDOW_AUTOSIZE );
+  namedWindow( window_name, CV_WINDOW_AUTOSIZE );
 
   /// Generate grad_x and grad_y
   Mat grad_x, grad_y;
   Mat abs_grad_x, abs_grad_y;
- 
-  /// Gradient X
-  //Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
-  Sobel( src_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );   
-  convertScaleAbs( grad_x, abs_grad_x );
 
-  /// Gradient Y 
-  //Scharr( src_gray, grad_y, ddepth, 0, 1, scale, delta, BORDER_DEFAULT );
-  Sobel( src_gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );   
-  convertScaleAbs( grad_y, abs_grad_y );
+  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+  for(int i=0; i<iterations; i++){ 
+     /// Gradient X
+     //Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
+     Sobel( src_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );   
+     convertScaleAbs( grad_x, abs_grad_x );
 
-  /// Total Gradient (approximate)
-  addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+     /// Gradient Y 
+     //Scharr( src_gray, grad_y, ddepth, 0, 1, scale, delta, BORDER_DEFAULT );
+     Sobel( src_gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );   
+     convertScaleAbs( grad_y, abs_grad_y );
 
-  //imshow( window_name, grad );
-
-  //waitKey(0);
-
-  //double end = clock();
-  //double elapsed = (end - start)/CLOCKS_PER_SEC;
-  //std::cout<<"elapsed time was "<<elapsed<<std::endl;
-
+     /// Total Gradient (approximate)
+     addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+  }
   clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+  imshow( window_name, grad );
+
+  waitKey(0);
+
+  //display runtime
   std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;
 
   return 0;

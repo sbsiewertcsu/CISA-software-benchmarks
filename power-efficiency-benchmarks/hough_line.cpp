@@ -17,10 +17,13 @@ void help()
 int main(int argc, char** argv)
 {
  const char* filename = argc >= 2 ? argv[1] : "pic1.jpg";
- 
- //double start = clock();
- struct timespec begin, end;
- clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+ struct timespec begin,end; 
+
+ if(argc<3){
+    printf("usage: ./hough_line imagefile numIterations \n");
+    return -1;
+ }
+ int iterations = atoi(argv[2]);
 
  Mat src = imread(filename, CV_LOAD_IMAGE_COLOR);
  if(src.empty())
@@ -37,26 +40,30 @@ int main(int argc, char** argv)
   vector<Vec4i> lines;
   HoughLinesP(dst, lines, 1, CV_PI/180, 50, 50, 10 );
 
-  for( size_t i = 0; i < lines.size(); i++ )
-  {
-    Vec4i l = lines[i];
-    //line( cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
-    line( src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
+  clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+
+  for(int it=0; it<iterations; it++){ //added by troy might be incorrect placement
+     for( size_t i = 0; i < lines.size(); i++ )
+     {
+       Vec4i l = lines[i];
+       //line( cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
+       line( src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
+     }
   }
+  
+  clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
  // Based on Hough linear transform, we might estimate status to overlay
  putText(src, "Attitude=OK, Alt=OK @ 50 meters", cvPoint(30,30), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(250,250,250), 1, CV_AA);
 
- //imshow("source", src);
- //waitKey();
+ //display result for user
+ imshow("source", src);
+ waitKey();
 
- //imshow("detected lines", cdst); 
- //waitKey();
- //double end = clock();
- //double elapsed = (end - start)/CLOCKS_PER_SEC;
- //std::cout<<"elapsed time was "<<elapsed<<std::endl;
- clock_gettime(CLOCK_MONOTONIC_RAW, &end);
-
+ imshow("detected lines", cdst); 
+ waitKey();
+ 
+ //display runtime
  std::cout<<"Elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;
 
  return 0;
