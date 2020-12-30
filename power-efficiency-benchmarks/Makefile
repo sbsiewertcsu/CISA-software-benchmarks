@@ -19,7 +19,7 @@ all:	canny hough_circle hough_line pyrimage sobel sharpen_grid
 
 clean:
 	-rm -f *.o *.d
-	-rm -f canny hough_circle hough_line pyrimage sobel
+	-rm -f canny hough_circle hough_line pyrimage sobel sharpen_grid
 
 distclean:
 	-rm -f *.o *.d
