@@ -1,10 +1,11 @@
 INCLUDE_DIRS = 
 LIB_DIRS = 
-CC=g++
+CC=gcc
+CPP=g++
 
 CDEFS=
 CFLAGS= -O0 -g $(INCLUDE_DIRS) $(CDEFS)
-LIBS= -lrt
+LIBS= -lrt -lpthread
 CPPLIBS= -L/usr/lib -lopencv_core -lopencv_flann -lopencv_video
 
 HFILES= 
@@ -14,7 +15,7 @@ CPPFILES= canny.cpp hough_circle.cpp hough_line.cpp pyrimage.cpp sobel.cpp
 SRCS= ${HFILES} ${CFILES}
 CPPOBJS= ${CPPFILES:.cpp=.o}
 
-all:	canny hough_circle hough_line pyrimage sobel 
+all:	canny hough_circle hough_line pyrimage sobel sharpen_grid
 
 clean:
 	-rm -f *.o *.d
@@ -23,20 +24,23 @@ clean:
 distclean:
 	-rm -f *.o *.d
 
+sharpen_grid: sharpen_grid.o
+	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o $(LIBS)
+
 canny: canny.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
+	$(CPP) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 hough_circle: hough_circle.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
+	$(CPP) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 hough_line: hough_line.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
+	$(CPP) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 pyrimage: pyrimage.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
+	$(CPP) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 sobel: sobel.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
+	$(CPP) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 depend:
 
@@ -44,4 +48,4 @@ depend:
 	$(CC) $(CFLAGS) -c $<
 
 .cpp.o:
-	$(CC) $(CFLAGS) -c $<
+	$(CPP) $(CFLAGS) -c $<

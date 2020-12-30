@@ -22,6 +22,14 @@ int main( int argc, char** argv )
 
   int c;
 
+
+  if(argc < 2)
+  {
+	  printf("usage: sobel inputfile.ppm\n");
+	  exit(-1);
+  }
+
+
   //double start = clock();
   struct timespec begin, end;
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
