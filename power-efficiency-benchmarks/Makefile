@@ -15,7 +15,7 @@ CPPFILES= canny.cpp hough_circle.cpp hough_line.cpp pyrimage.cpp sobel.cpp
 SRCS= ${HFILES} ${CFILES}
 CPPOBJS= ${CPPFILES:.cpp=.o}
 
-all:	canny hough_circle hough_line pyrimage sobel sharpen_grid
+all:	canny hough_circle hough_line pyrimage sobel sharpen_grid sharpen
 
 clean:
 	-rm -f *.o *.d
@@ -23,6 +23,9 @@ clean:
 
 distclean:
 	-rm -f *.o *.d
+
+sharpen: sharpen.o
+	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o $(LIBS)
 
 sharpen_grid: sharpen_grid.o
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o $(LIBS)
