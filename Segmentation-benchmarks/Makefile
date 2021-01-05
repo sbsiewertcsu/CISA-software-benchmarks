@@ -14,14 +14,12 @@ CPPFILES= hough_circle.cpp hough_line.cpp canny.cpp sobel.cpp capture.cpp captur
 SRCS= ${HFILES} ${CFILES}
 CPPOBJS= ${CPPFILES:.cpp=.o}
 
-all:	captureskel capture sobel canny hough_circle hough_line skeletal
+all:	captureskel capture hough_circle hough_line skeletal
 
 clean:
 	-rm -f *.o *.d cvtest*.ppm cvtest*.pgm test*.ppm test*.pgm
 	-rm -f captureskel
 	-rm -f capture
-	-rm -f sobel
-	-rm -f canny
 	-rm -f hough_line
 	-rm -f hough_circle
 	-rm -f skeletal
@@ -33,12 +31,6 @@ hough_circle: hough_circle.o
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 hough_line: hough_line.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
-
-canny: canny.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
-
-sobel: sobel.o
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS)
 
 skeletal: skeletal.o

@@ -57,11 +57,11 @@ int main(int argc, char** argv)
  putText(src, "Attitude=OK, Alt=OK @ 50 meters", cvPoint(30,30), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(250,250,250), 1, CV_AA);
 
  //display result for user
- imshow("source", src);
- waitKey();
+ //imshow("source", src);
+ //waitKey();
 
- imshow("detected lines", cdst); 
- waitKey();
+ //imshow("detected lines", cdst); 
+ //waitKey();
  
  //display runtime
  std::cout<<"Elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;

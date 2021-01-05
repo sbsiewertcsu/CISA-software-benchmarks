@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <iostream>
+#include <omp.h>
 	
 using namespace cv;
 	
@@ -20,6 +21,7 @@ int main( int argc, char** argv )
   int delta = 0;
   int ddepth = CV_16S;
   int c;
+  int thread_count = 4;
 
   if(argc<3){
      printf("usage: ./sobel imagefile numIterations\n");
@@ -42,13 +44,14 @@ int main( int argc, char** argv )
   cvtColor( src, src_gray, CV_RGB2GRAY );
 
   /// Create window
-  namedWindow( window_name, CV_WINDOW_AUTOSIZE );
+  //namedWindow( window_name, CV_WINDOW_AUTOSIZE );
 
   /// Generate grad_x and grad_y
   Mat grad_x, grad_y;
   Mat abs_grad_x, abs_grad_y;
 
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
+  #pragma omp parallel num_threads(thread_count)
   for(int i=0; i<iterations; i++){ 
      /// Gradient X
      //Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
@@ -65,9 +68,9 @@ int main( int argc, char** argv )
   }
   clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
-  imshow( window_name, grad );
+  //imshow( window_name, grad );
 
-  waitKey(0);
+  //waitKey(0);
 
   //display runtime
   std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;

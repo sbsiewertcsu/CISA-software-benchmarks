@@ -14,7 +14,7 @@ int main( int argc, char** argv )
             " * [ESC] -> Close program \n" << endl;
     const char* filename = argc >=2 ? argv[1] : "Cactus-12mpixel.png";
     // Loads an image
-    Mat src = imread( samples::findFile( filename ) );
+    Mat src = imread(filename);
 
     // Check if image is loaded fine
     if(src.empty()){
