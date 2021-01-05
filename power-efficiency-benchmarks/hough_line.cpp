@@ -18,6 +18,8 @@ int main(int argc, char** argv)
 {
  const char* filename = argc >= 2 ? argv[1] : "pic1.jpg";
  struct timespec begin,end; 
+ int thread_count=4;
+ char key='x';
 
  if(argc<3){
     printf("usage: ./hough_line imagefile numIterations \n");
@@ -42,6 +44,7 @@ int main(int argc, char** argv)
 
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
 
+#pragma omp parallel num_threads(thread_count)
   for(int it=0; it<iterations; it++){ //added by troy might be incorrect placement
      for( size_t i = 0; i < lines.size(); i++ )
      {
@@ -57,11 +60,18 @@ int main(int argc, char** argv)
  putText(src, "Attitude=OK, Alt=OK @ 50 meters", cvPoint(30,30), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(250,250,250), 1, CV_AA);
 
  //display result for user
- //imshow("source", src);
- //waitKey();
+ while(key != 'q')
+ {
+    imshow("source", src);
+    key=waitKey();
+ }
 
- //imshow("detected lines", cdst); 
- //waitKey();
+ key='x';
+ while(key != 'q')
+ {
+     imshow("detected lines", cdst); 
+     key=waitKey();
+ }
  
  //display runtime
  std::cout<<"Elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;

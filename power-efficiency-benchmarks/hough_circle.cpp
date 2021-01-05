@@ -12,6 +12,10 @@ int main(int argc, char** argv)
 {
   Mat src, src_gray;
   struct timespec begin, end;
+  int thread_count=4;
+  char key='x';
+
+
   if(argc<3){
      printf("usage: ./hough_circle imagefile numIterations \n");
      return -1;
@@ -35,6 +39,7 @@ int main(int argc, char** argv)
 
   //time the transform
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);  
+#pragma omp parallel num_threads(thread_count)
   for(int i=0; i<iterations; i++){
      // Apply the Hough Transform to find the circles
      HoughCircles( src_gray, circles, CV_HOUGH_GRADIENT, 1, src_gray.rows/8, 200, 100, 0, 0 );
@@ -56,9 +61,12 @@ int main(int argc, char** argv)
   std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;  
 
   //show the results
-  namedWindow("Hough Circle Transform Demo", CV_WINDOW_AUTOSIZE );
-  imshow( "Hough Circle Transform Demo", src );
-  waitKey(0);
+  while(key != 'q')
+  {
+      namedWindow("Hough Circle Transform Demo", CV_WINDOW_AUTOSIZE );
+      imshow( "Hough Circle Transform Demo", src );
+      key=waitKey(0);
+  }
 
   return 0;
 }

@@ -16,7 +16,8 @@ int main( int argc, char** argv )
 
   Mat src, src_gray;
   Mat grad; 
-  char* window_name = "Sobel Demo - Simple Edge Detector";
+  char window_name[] = "Sobel Demo - Simple Edge Detector";
+  //char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
   int delta = 0;
   int ddepth = CV_16S;
@@ -44,7 +45,7 @@ int main( int argc, char** argv )
   cvtColor( src, src_gray, CV_RGB2GRAY );
 
   /// Create window
-  //namedWindow( window_name, CV_WINDOW_AUTOSIZE );
+  namedWindow( window_name, CV_WINDOW_AUTOSIZE );
 
   /// Generate grad_x and grad_y
   Mat grad_x, grad_y;
@@ -68,9 +69,9 @@ int main( int argc, char** argv )
   }
   clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
-  //imshow( window_name, grad );
+  imshow( window_name, grad );
 
-  //waitKey(0);
+  waitKey(0);
 
   //display runtime
   std::cout<<"elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;

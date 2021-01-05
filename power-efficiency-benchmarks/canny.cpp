@@ -43,6 +43,7 @@ int main( int argc, char** argv )
 {
   struct timespec begin, end;
   int iterations=1, idx;
+  int thread_count=4;
 
   if(argc < 3) 
   { 
@@ -68,6 +69,7 @@ int main( int argc, char** argv )
   //
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
 
+#pragma omp parallel num_threads(thread_count)
   for(idx=0; idx < iterations; idx++)
   {
     cvtColor(src, src_gray, CV_BGR2GRAY);
