@@ -9,6 +9,8 @@
 //#include "opencv2/highgui.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
+#include <stdio.h>
+
 #include <time.h>
 #include <omp.h>
 
