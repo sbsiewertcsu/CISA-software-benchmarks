@@ -12,11 +12,11 @@
 #include <time.h>
 
 
-//#define IMG_HEIGHT (300)
-//#define IMG_WIDTH (400)
+//#define IMG_HEIGHT (240)
+//#define IMG_WIDTH (320)
 
-#define IMG_HEIGHT (3000)
-#define IMG_WIDTH (4000)
+#define IMG_HEIGHT (960)
+#define IMG_WIDTH (1280)
 
 #define ITERATIONS (90)
 
@@ -143,6 +143,8 @@ int main(int argc, char *argv[])
     clock_gettime(CLOCK_MONOTONIC, &now);
     fnow = (FLOAT)now.tv_sec  + (FLOAT)now.tv_nsec / 1000000000.0;
     printf("\nstart test at %lf\n", fnow-fstart);
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    fstart = (FLOAT)start.tv_sec  + (FLOAT)start.tv_nsec / 1000000000.0;
 
     for(iter=0; iter < ITERATIONS; iter++)
     {
@@ -203,7 +205,7 @@ int main(int argc, char *argv[])
 
     clock_gettime(CLOCK_MONOTONIC, &now);
     fnow = (FLOAT)now.tv_sec  + (FLOAT)now.tv_nsec / 1000000000.0;
-    printf("stop test at %lf for %d frames\n\n", fnow-fstart, ITERATIONS);
+    printf("stop test at %lf for %d frames, fps=%lf, pps=%lf\n\n", fnow-fstart, ITERATIONS, ITERATIONS/(fnow-fstart), (ITERATIONS*IMG_HEIGHT*IMG_WIDTH)/(fnow-fstart));
 
     rc=write(fdout, (void *)header, 21);
 
