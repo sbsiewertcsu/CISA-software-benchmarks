@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     UINT64 microsecs=0, millisecs=0;
     FLOAT temp, fstart, fnow;
     struct timespec start, now;
-    int thread_count=2;
+    int thread_count=4;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
     fstart = (FLOAT)start.tv_sec  + (FLOAT)start.tv_nsec / 1000000000.0;

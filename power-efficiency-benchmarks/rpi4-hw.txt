@@ -1,0 +1,98 @@
+processor	: 0
+model name	: ARMv7 Processor rev 3 (v7l)
+BogoMIPS	: 108.00
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd08
+CPU revision	: 3
+
+processor	: 1
+model name	: ARMv7 Processor rev 3 (v7l)
+BogoMIPS	: 108.00
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd08
+CPU revision	: 3
+
+processor	: 2
+model name	: ARMv7 Processor rev 3 (v7l)
+BogoMIPS	: 108.00
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd08
+CPU revision	: 3
+
+processor	: 3
+model name	: ARMv7 Processor rev 3 (v7l)
+BogoMIPS	: 108.00
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd08
+CPU revision	: 3
+
+Hardware	: BCM2835
+Revision	: c03111
+Serial		: 10000000bfeaf998
+Model		: Raspberry Pi 4 Model B Rev 1.1
+              total        used        free      shared  buff/cache   available
+Mem:          3.8Gi       180Mi       3.0Gi        50Mi       622Mi       3.5Gi
+Swap:         1.0Gi          0B       1.0Gi
+Settings for eth0:
+	Supported ports: [ TP MII ]
+	Supported link modes:   10baseT/Half 10baseT/Full 
+	                        100baseT/Half 100baseT/Full 
+	                        1000baseT/Half 1000baseT/Full 
+	Supported pause frame use: Symmetric Receive-only
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  10baseT/Half 10baseT/Full 
+	                        100baseT/Half 100baseT/Full 
+	                        1000baseT/Half 1000baseT/Full 
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: Yes
+	Advertised FEC modes: Not reported
+	Link partner advertised link modes:  10baseT/Half 10baseT/Full 
+	                                     100baseT/Half 100baseT/Full 
+	                                     1000baseT/Full 
+	Link partner advertised pause frame use: Symmetric
+	Link partner advertised auto-negotiation: Yes
+	Link partner advertised FEC modes: Not reported
+	Speed: 1000Mb/s
+	Duplex: Full
+	Port: MII
+	PHYAD: 1
+	Transceiver: internal
+	Auto-negotiation: on
+	Current message level: 0x00000007 (7)
+			       drv probe link
+	Link detected: yes
+Settings for wlan0:
+No data available
+Bus 002 Device 005: ID 0bda:0411 Realtek Semiconductor Corp. 
+Bus 002 Device 004: ID 0bda:0411 Realtek Semiconductor Corp. 
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 009: ID 413c:2107 Dell Computer Corp. 
+Bus 001 Device 010: ID 046d:c077 Logitech, Inc. M105 Optical Mouse
+Bus 001 Device 008: ID 0bda:5411 Realtek Semiconductor Corp. 
+Bus 001 Device 007: ID 0bda:5411 Realtek Semiconductor Corp. 
+Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        27G   12G   15G  45% /
+devtmpfs        1.8G     0  1.8G   0% /dev
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+tmpfs           2.0G  8.6M  1.9G   1% /run
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mmcblk0p6  253M   52M  202M  21% /boot
+tmpfs           391M     0  391M   0% /run/user/1000
+00:00.0 PCI bridge: Broadcom Limited Device 2711 (rev 10)
+01:00.0 USB controller: VIA Technologies, Inc. VL805 USB 3.0 Host Controller (rev 01)
