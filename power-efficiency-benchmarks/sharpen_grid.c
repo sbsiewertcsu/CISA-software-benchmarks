@@ -8,8 +8,8 @@
 #include <time.h>
 
 
-#define IMG_HEIGHT (3000)
-#define IMG_WIDTH (4000)
+#define IMG_HEIGHT (960)
+#define IMG_WIDTH (1280)
 
 //#define IMG_HEIGHT (300)
 //#define IMG_WIDTH (400)
@@ -303,7 +303,7 @@ int main(int argc, char *argv[])
 
     clock_gettime(CLOCK_MONOTONIC, &now);
     fnow = (FLOAT)now.tv_sec + (FLOAT)now.tv_nsec / 1000000000.0;
-    printf("\nCompleted test at %lf for %d creat-to-join and %lf FPS\n\n", fnow - fstart, runs, (fnow-fstart)/(FLOAT)ITERATIONS);
+    printf("\nCompleted test at %lf for %d creat-to-join and %lf FPS\n\n", fnow - fstart, runs, (FLOAT)ITERATIONS/(fnow-fstart));
 
     printf("Starting output file %s write\n", argv[2]);
     rc=write(fdout, (void *)header, 21);
