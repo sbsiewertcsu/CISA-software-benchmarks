@@ -1,0 +1,64 @@
+processor	: 0
+model name	: ARMv7 Processor rev 0 (v7l)
+BogoMIPS	: 200.00
+Features	: half thumb fastmult vfp edsp thumbee neon vfpv3 tls vfpd32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x3
+CPU part	: 0xc09
+CPU revision	: 0
+
+processor	: 1
+model name	: ARMv7 Processor rev 0 (v7l)
+BogoMIPS	: 200.00
+Features	: half thumb fastmult vfp edsp thumbee neon vfpv3 tls vfpd32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x3
+CPU part	: 0xc09
+CPU revision	: 0
+
+Hardware	: Altera SOCFPGA
+Revision	: 0000
+Serial		: 0000000000000000
+              total        used        free      shared  buff/cache   available
+Mem:           748M        142M        465M         14M        140M        568M
+Swap:            0B          0B          0B
+Settings for eth0:
+	Supported ports: [ TP MII ]
+	Supported link modes:   10baseT/Half 10baseT/Full 
+	                        100baseT/Half 100baseT/Full 
+	                        1000baseT/Half 1000baseT/Full 
+	Supported pause frame use: Symmetric
+	Supports auto-negotiation: Yes
+	Advertised link modes:  10baseT/Half 10baseT/Full 
+	                        100baseT/Half 100baseT/Full 
+	                        1000baseT/Half 1000baseT/Full 
+	Advertised pause frame use: Symmetric
+	Advertised auto-negotiation: Yes
+	Link partner advertised link modes:  10baseT/Half 10baseT/Full 
+	                                     100baseT/Half 100baseT/Full 
+	                                     1000baseT/Full 
+	Link partner advertised pause frame use: Symmetric
+	Link partner advertised auto-negotiation: Yes
+	Speed: 1000Mb/s
+	Duplex: Full
+	Port: MII
+	PHYAD: 1
+	Transceiver: external
+	Auto-negotiation: on
+	Current message level: 0x0000003f (63)
+			       drv probe link timer ifdown ifup
+	Link detected: yes
+Bus 001 Device 002: ID 0424:2512 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       3.9G  3.1G  541M  86% /
+devtmpfs        119M     0  119M   0% /dev
+tmpfs           375M  236K  375M   1% /dev/shm
+tmpfs           375M   11M  365M   3% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           375M     0  375M   0% /sys/fs/cgroup
+tmpfs            75M   36K   75M   1% /run/user/1000
+/dev/mmcblk0p1  818M   13M  806M   2% /media/ubuntu/5459-A1D6
+tmpfs            75M   16K   75M   1% /run/user/109

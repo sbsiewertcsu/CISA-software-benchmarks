@@ -84,6 +84,7 @@ int main( int argc, char** argv )
 
   // Benchmark output approval - wait until user exit program by pressing a key
   imshow(window_name, dst);
+
   waitKey(0);
 
 

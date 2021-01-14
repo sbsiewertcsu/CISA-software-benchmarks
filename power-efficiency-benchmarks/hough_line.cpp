@@ -42,12 +42,14 @@ int main(int argc, char** argv)
  cvtColor(dst, cdst, CV_GRAY2BGR);
 
   vector<Vec4i> lines;
-  HoughLinesP(dst, lines, 1, CV_PI/180, 50, 50, 10 );
 
   clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
 
 #pragma omp parallel num_threads(thread_count)
-  for(int it=0; it<iterations; it++){ //added by troy might be incorrect placement
+  for(int it=0; it<iterations; it++) { //added by troy might be incorrect placement
+  
+     HoughLinesP(dst, lines, 1, CV_PI/180, 50, 50, 10 );
+
      for( size_t i = 0; i < lines.size(); i++ )
      {
        Vec4i l = lines[i];
