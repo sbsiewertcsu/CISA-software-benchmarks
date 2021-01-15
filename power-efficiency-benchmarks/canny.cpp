@@ -88,6 +88,7 @@ int main( int argc, char** argv )
   waitKey(0);
 
 
+  imwrite("colorcanny.png", dst);
 
   return 0;
 }

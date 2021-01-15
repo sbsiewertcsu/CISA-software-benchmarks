@@ -63,5 +63,7 @@ int main( int argc, char** argv )
     imshow(window_name, newImage);
     waitKey(0);
 
+    imwrite("pyramidal.png", newImage);
+
     return EXIT_SUCCESS;
 }

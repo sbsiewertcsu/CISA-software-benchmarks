@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 
  Mat dst, cdst;
  Canny(src, dst, 50, 200, 3);
+ //Canny(src, dst, 120, 240, 3);
  cvtColor(dst, cdst, CV_GRAY2BGR);
 
   vector<Vec4i> lines;
@@ -48,20 +49,21 @@ int main(int argc, char** argv)
 #pragma omp parallel num_threads(thread_count)
   for(int it=0; it<iterations; it++) { //added by troy might be incorrect placement
   
+     //HoughLinesP(dst, lines, 1, CV_PI/180, 50, 100, 10 );
      HoughLinesP(dst, lines, 1, CV_PI/180, 50, 50, 10 );
 
      for( size_t i = 0; i < lines.size(); i++ )
      {
        Vec4i l = lines[i];
        //line( cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
-       line( src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
+       line( src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 1, CV_AA);
      }
   }
   
   clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
  // Based on Hough linear transform, we might estimate status to overlay
- putText(src, "Attitude=OK, Alt=OK @ 50 meters", cvPoint(30,30), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(250,250,250), 1, CV_AA);
+ putText(src, "Detected Line Overlay", cvPoint(30,30), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(250,250,250), 1, CV_AA);
 
  //display result for user
  while(key != 'q')
@@ -69,6 +71,7 @@ int main(int argc, char** argv)
     imshow("source", src);
     key=waitKey();
  }
+ imwrite("houghline.png", src);
 
  key='x';
  while(key != 'q')
@@ -76,6 +79,7 @@ int main(int argc, char** argv)
      imshow("detected lines", cdst); 
      key=waitKey();
  }
+ imwrite("canny.png", cdst);
  
  //display runtime
  std::cout<<"Elapsed time was "<<((end.tv_nsec - begin.tv_nsec) / 1000000000.0 + (end.tv_sec - begin.tv_sec)) <<std::endl;
