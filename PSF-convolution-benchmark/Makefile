@@ -6,8 +6,8 @@ CDEFS=
 #CFLAGS= -O0 $(INCLUDE_DIRS) $(CDEFS)
 #CFLAGS= -O1 $(INCLUDE_DIRS) $(CDEFS)
 #CFLAGS= -O2 $(INCLUDE_DIRS) $(CDEFS)
-#CFLAGS= -O3 $(INCLUDE_DIRS) $(CDEFS)
-CFLAGS= -O3 -mcpu=cortex-a7 -mfpu=neon-vfpv4 $(INCLUDE_DIRS) $(CDEFS)
+CFLAGS= -O3 $(INCLUDE_DIRS) $(CDEFS)
+#CFLAGS= -O3 -mcpu=cortex-a7 -mfpu=neon-vfpv4 $(INCLUDE_DIRS) $(CDEFS)
 #CFLAGS= -O3 -mssse3 $(INCLUDE_DIRS) $(CDEFS)
 LIBS=-lpthread
 
